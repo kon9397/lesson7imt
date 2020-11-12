@@ -1,6 +1,43 @@
-<?
+<?php
+    session_start();
 
-require_once __DIR__ . '/Data/users.php';
+    require_once __DIR__ . '/Data/users.php';
+
+    $authUser = null;
+    if(isset($_SESSION['id'])) {
+
+        foreach ($users as $user) {
+            if($user['id'] === $_SESSION['id']) {
+                if(!($user['role'] === 'admin' || $user['role'] === 'manager' )) {
+
+                    header('HTTP/1.0 403 Forbidden');
+                    die('Извините у вас нет прав');
+                } else {
+                    if($user['role'] === 'admin') {
+                        $authUser = new Admin($user['login'], $user['password']);
+                        $role = "Администратор";
+                    } else {
+                        $authUser = new Manager($user['login'], $user['password']);
+                        $role = "Менеджер";
+                    }
+
+
+                    $authUser->name = $user['name'];
+                    $authUser->surname = $user['surname'];
+                    if(isset($user['lang'])) {
+                        $authUser->lang = $user['lang'];
+                    } else {
+                        $authUser->lang = 'ru';
+                    }
+                }
+
+
+
+            }
+        }
+    } else {
+        header('Location: /auth.php');
+    }
 
 ?>
 
@@ -14,6 +51,6 @@ require_once __DIR__ . '/Data/users.php';
     <title>Document</title>
 </head>
 <body>
-
+    <h1>Привет <?= $role . ' ' . $authUser->name . ' ' . $authUser->surname ?></h1>
 </body>
 </html>

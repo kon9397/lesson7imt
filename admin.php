@@ -11,7 +11,7 @@
                 if(!($user['role'] === 'admin')) {
 
                     header('HTTP/1.0 403 Forbidden');
-                    die('Forbidden');
+                    die('Извините у вас нет прав');
                 } else {
                     $authUser = new Admin($user['login'], $user['password']);
                     $role = "Администратор";
