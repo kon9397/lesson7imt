@@ -8,11 +8,11 @@ if(isset($_SESSION['id'])) {
     header('Location: /index.php');
 }
 
-if(isset($_POST['email']) && isset($_POST['password'])) {
-    $authUser = new User($_POST['email'], $_POST['password']);
+if(isset($_POST['login']) && isset($_POST['password'])) {
+    $authUser = new User($_POST['login'], $_POST['password']);
 
     foreach ($users as $user) {
-        if($user['email'] === $authUser->email) {
+        if($user['login'] === $authUser->login) {
             $auth = $authUser->autendificated($user['password']);
             if($auth) {
 
@@ -36,7 +36,7 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
 </head>
 <body>
 <form method="post">
-    <input type="text" name="email" placeholer="Введите email">
+    <input type="text" name="login" placeholer="Введите login">
     <input type="password" name="password" placeholder="Введите пароль">
     <button type="submit">Войти</button>
 </form>

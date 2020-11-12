@@ -1,7 +1,4 @@
-<?php
-require_once 'Data/users.php';
-
-session_start();
+<?
 
 $authUser = null;
 if(isset($_SESSION['id'])) {
@@ -34,6 +31,7 @@ if(isset($_SESSION['id'])) {
 
 ?>
 
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -45,15 +43,5 @@ if(isset($_SESSION['id'])) {
 </head>
 <body>
 
-<?php if(isset($authUser)): ?>
-<h1>Привет <?= $role . ' ' . $authUser->name . ' ' . $authUser->surname ?></h1>
-    <a href="add.php">Перейти в корзину</a>
-    <a href="<?= $authUser->role ?>.php">Перейти в личный кабинет</a>
-
-<?php else: ?>
-<h1>Привет незнакомец</h1>
-    <a href="auth.php">Авторизоваться</a>
-
-<?php endif; ?>
 </body>
 </html>

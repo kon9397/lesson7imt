@@ -5,13 +5,14 @@ class User
 {
     public $name;
     public $surname;
-    public $email;
+    public $login;
     public $password;
+    public $lang;
 
 
-    public function __construct($email, $password)
+    public function __construct($login, $password)
     {
-        $this->email = $email;
+        $this->login = $login;
         $this->password = $password;
     }
 
@@ -19,6 +20,11 @@ class User
         if($pass === $this->password) {
             return true;
         }
+    }
+
+    public function setLanguage($lang)
+    {
+       $this->lang = $lang;
     }
 
 }
